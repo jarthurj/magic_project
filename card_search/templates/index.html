@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<title></title>
+</head>
+<body>
+	<form action="/search" method="post">
+		{% csrf_token %}
+		<input name="basic_search" type="text">
+	</form>
+</body>
+</html>
