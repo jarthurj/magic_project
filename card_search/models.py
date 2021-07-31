@@ -1,5 +1,7 @@
 from django.db import models
 
+rare_list = ['common','uncommon','rare','mythic','special','bonus']
+
 class Toughness(models.Model):
 	toughness = models.IntegerField()
 
@@ -14,7 +16,6 @@ class Digital(models.Model):
 
 class Rarity(models.Model):
 	rarity = models.IntegerField()
-	rare_list = ['common','uncommon','rare','mythic','special','bonus']
 
 class Set_name(models.Model):
 	set_name = models.CharField(max_length=50)
@@ -24,21 +25,22 @@ class Layout(models.Model):
 
 class Mana_cost(models.Model):
 	mana_cost= models.CharField(max_length=45)
+
 class Cmc(models.Model):
 	cmc = models.FloatField()
 
 class Legalities(models.Model):
 	name = models.CharField(max_length=45)
 
-
-
 class Card(models.Model):
 	name = models.CharField(max_length=150)
 	flavor_text = models.CharField(max_length=450, null=True)
 	oracle_text = models.CharField(max_length=1000, null=True)
+
 	small = models.URLField()
 	normal = models.URLField()
 	large = models.URLField()
+
 	type_line = models.CharField(max_length=100, null=True)
 
 	artist = models.ForeignKey(Artist, related_name="cards", on_delete=models.CASCADE)
