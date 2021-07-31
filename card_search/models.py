@@ -73,6 +73,7 @@ class Keyword(models.Model):
 class Card_type(models.Model):
 	card_type= models.CharField(max_length=45)
 	cards = models.ManyToManyField(Card,related_name="card_types")
+
 #Powers to clean up
 # '∞','?', '*²', '*', 
 

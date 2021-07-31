@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<form action="/advanced_search" method="post">
+		{% csrf_token %}
+		<p>blue<input type="checkbox" name="blue" value="U"></p>
+		<p>black<input type="checkbox" name="black" value="B"></p>
+		<p>green<input type="checkbox" name="green" value="G"></p>
+		<p>white<input type="checkbox" name="white" value="W"></p>
+		<p>red<input type="checkbox" name="red" value="R"></p>
+
+		<button type="submit">Submit</button>
+	</form>
+		
+</body>
+</html>

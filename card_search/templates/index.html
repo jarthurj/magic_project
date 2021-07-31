@@ -8,9 +8,12 @@
 	<title></title>
 </head>
 <body>
-	<form action="/search" method="post">
+	<form action="/name_search" method="post">
 		{% csrf_token %}
-		<input name="basic_search" type="text">
+		<input name="name_search_input" type="text">
+		<button type="submit">Submit</button>
 	</form>
+	<a href="/advanced"><button>Advanced Search</button></a>
+
 </body>
 </html>
