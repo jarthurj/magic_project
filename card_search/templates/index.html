@@ -8,7 +8,7 @@
 	<title></title>
 </head>
 <body>
-	<form action="/name_search" method="post">
+	<form action="/name_search" method="get">
 		{% csrf_token %}
 		<input name="name_search_input" type="text">
 		<button type="submit">Submit</button>

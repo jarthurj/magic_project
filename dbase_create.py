@@ -272,7 +272,7 @@ for card in data:
 		colors = card['colors']
 		this_card = Card.objects.get(id=counter)
 		for color in colors:
-			this_color = Color.objects.filter(color=color)
+			this_color = Color.objects.filter(color=color).first()
 			this_color.cards.add(this_card)
 	except:pass
 
@@ -308,7 +308,7 @@ for card in data:
 		colors = card['color_identity']
 		this_card = Card.objects.get(id=counter)
 		for color in colors:
-			this_color = Color_identity.objects.filter(color_iden=color)
+			this_color = Color_identity.objects.filter(color_iden=color).first()
 			this_color.cards.add(this_card)
 	except:pass
 

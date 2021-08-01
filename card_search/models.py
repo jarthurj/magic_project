@@ -1,5 +1,5 @@
 from django.db import models
-
+#NEED TO ADD IN CARD TYPES
 rare_list = ['common','uncommon','rare','mythic','special','bonus']
 
 class Toughness(models.Model):
@@ -79,3 +79,5 @@ class Card_type(models.Model):
 
 #Toughness to clean up
 # '?', '*²','*'
+
+
