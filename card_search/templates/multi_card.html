@@ -3,13 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<title></title>
+
 </head>
 <body>
-<!-- 	{{blue}}
-	{{black}}
-	{{green}}
-	{{white}}
-	{{red}} -->
-	{{colors}}
+
+	{% for card in returned_cards %}
+		<img src={{card.fields.normal}}>
+		<p>{{card.fields.colors}}</p>
+	{% endfor %}
+
 </body>
 </html>

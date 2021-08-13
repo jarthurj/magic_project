@@ -1,9 +1,28 @@
 from django.db import models
-#NEED TO ADD IN CARD TYPES
 rare_list = ['common','uncommon','rare','mythic','special','bonus']
+
+class ToughnessManager(models.Manager):
+	def toughness_query(self, request):
+		toughness = request.POST['toughness']
+		toughness_equality = request.POST['toughness_equality']
+		if toughness == '99':
+			return None
+		elif toughness_equality == '1':#equals
+			return Toughness.objects.filter(toughness=int(toughness)).first().cards.all()
+		elif toughness_equality == '2':#gte
+			return Toughness.objects.filter(toughness__gte=int(toughness)).first().cards.all()
+		elif toughness_equality == '3':#lte
+			return Toughness.objects.filter(toughness__lte=int(toughness)).first().cards.all()
+		elif toughness_equality == '4':#gt
+			return Toughness.objects.filter(toughness__gt=int(toughness)).first().cards.all()
+		elif toughness_equality == '5':#lt
+			return Toughness.objects.filter(toughness__lt=int(toughness)).first().cards.all()
+
 
 class Toughness(models.Model):
 	toughness = models.IntegerField()
+	objects = ToughnessManager()
+
 
 class Power(models.Model):
 	power = models.IntegerField()
@@ -60,9 +79,34 @@ class Legal(models.Model):
 	legal = models.BooleanField(null=True)
 	card = models.ForeignKey(Card, related_name="legals", on_delete=models.CASCADE, null=True)
 
+
+class Colors_Manager(models.Manager):
+	def colors_query(self,request):
+		xors = request.POST["colors_options"]
+		colors = request.POST.getlist("colors")
+		if len(colors) == 0:
+			return None
+		not_colors = "RBWGU"
+		for color in colors:
+			not_colors = not_colors.replace(color, "")
+		color_cards = Colors.objects.filter(color=colors[0]).first().cards.all()
+		not_color_cards = Colors.objects.filter(color=not_colors[0]).first().cards.all()
+		if xors[0] == '1':
+			for x in range(1,len(colors)):
+				color_cards = color_cards.union(Colors.objects.filter(color=colors[x]).first().cards.all())
+			for x in range(1,len(not_colors)):
+				not_color_cards = not_color_cards.union(Colors.objects.filter(color=not_colors[x]).first().cards.all())
+			return color_cards.difference(color_cards.intersection(not_color_cards))
+		else:
+			for x in range(1,len(colors)):
+				color_cards = color_cards.union(Colors.objects.filter(color=colors[x]).first().cards.all())
+			return color_cards
+
 class Colors(models.Model):
 	color = models.CharField(max_length=1)
 	cards = models.ManyToManyField(Card, related_name="colors")
+	objects = Colors_Manager()
+
 class Color_identity(models.Model):
 	color_iden = models.CharField(max_length=1)
 	cards = models.ManyToManyField(Card, related_name="color_idens")

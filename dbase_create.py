@@ -4,6 +4,26 @@ fh = open("..//all_artists2.p","rb")
 artists = pickle.load(fh)
 fh.close()
 
+
+
+broken = {
+	"flavor_text": 0,
+	"oracle_text": 0,
+	"image_urls":0,
+	"powers":0,
+	"toughness":0,
+	"colors":0,
+	"color_idens":0,
+	"keywords":0,
+	"layout":0,
+	"typer":0,
+	"types_line":0,
+	"mana_cost":0,
+	"cmc":0,
+	"legals":0,
+
+}
+
 artists = list(artists)
 for artist in artists:
 	Artist.objects.create(artist_name = artist)
@@ -130,123 +150,115 @@ for card in data:
 		digital = Digital.objects.filter(digital=card['digital'])[0],
 		rarity = Rarity.objects.get(id=rare_dict[card['rarity']]),
 	)
-	
+	this_card = Card.objects.get(id=counter)
 	try:
 		flavor_text = card['flavor_text']
-		card_to_update = Card.objects.get(id=counter)
-		card_to_update.flavor_text = flavor_text
-		card_to_update.save()
-	except:
-		pass
+		this_card.flavor_text = flavor_text
+		this_card.save()
+	except:broken['flavor_text'] += 1
 	try:
 		oracle_text = card['oracle_text']
-		card_to_update = Card.objects.get(id=counter)
-		card_to_update.oracle_text = oracle_text
-		card_to_update.save()
-	except:
-		pass
+		this_card.oracle_text = oracle_text
+		this_card.save()
+	except:broken['oracle_text'] += 1
 	try:
 		img_uris = card['image_uris']
-		card_to_update = Card.objects.get(id=counter)
-		card_to_update.small = card['image_uris']['small']
-		card_to_update.normal = card['image_uris']['normal']
-		card_to_update.large = card['image_uris']['large']
-		card_to_update.save()
-	except:
-		pass
+		this_card.small = card['image_uris']['small']
+		this_card.normal = card['image_uris']['normal']
+		this_card.large = card['image_uris']['large']
+		this_card.save()
+	except:broken['image_urls'] += 1
 	try:
 		power = card['power']
-		card_to_update=Card.objects.get(id=counter)
 		if power in ['-1']:
-			card_to_update.power=Power.objects.get(id=17)
+			this_card.power=Power.objects.get(id=17)
 		if power in ['+0','0']:
-			card_to_update.power=Power.objects.get(id=18)
+			this_card.power=Power.objects.get(id=18)
 		if power in ['.5','1','+1', '1+*','1.5']:
-			card_to_update.power=Power.objects.get(id=1)
+			this_card.power=Power.objects.get(id=1)
 		if power in ['2','+2','2+*', '2.5',]:
-			card_to_update.power=Power.objects.get(id=2)
+			this_card.power=Power.objects.get(id=2)
 		if power in ['3','+3','3.5']:
-			card_to_update.power=Power.objects.get(id=3)
+			this_card.power=Power.objects.get(id=3)
 		if power in ['4','+4']:
-			card_to_update.power=Power.objects.get(id=4)
+			this_card.power=Power.objects.get(id=4)
 		if power in ['5']:
-			card_to_update.power=Power.objects.get(id=5)
+			this_card.power=Power.objects.get(id=5)
 		if power in ['6']:
-			card_to_update.power=Power.objects.get(id=6)
+			this_card.power=Power.objects.get(id=6)
 		if power in ['7']:
-			card_to_update.power=Power.objects.get(id=7)
+			this_card.power=Power.objects.get(id=7)
 		if power in ['8']:
-			card_to_update.power=Power.objects.get(id=8)
+			this_card.power=Power.objects.get(id=8)
 		if power in ['9']:
-			card_to_update.power=Power.objects.get(id=9)
+			this_card.power=Power.objects.get(id=9)
 		if power in ['10']:
-			card_to_update.power=Power.objects.get(id=10)
+			this_card.power=Power.objects.get(id=10)
 		if power in ['11']:
-			card_to_update.power=Power.objects.get(id=11)
+			this_card.power=Power.objects.get(id=11)
 		if power in ['12']:
-			card_to_update.power=Power.objects.get(id=12)
+			this_card.power=Power.objects.get(id=12)
 		if power in ['13']:
-			card_to_update.power=Power.objects.get(id=13)
+			this_card.power=Power.objects.get(id=13)
 		if power in ['15']:
-			card_to_update.power=Power.objects.get(id=14)
+			this_card.power=Power.objects.get(id=14)
 		if power in ['16']:
-			card_to_update.power=Power.objects.get(id=15)
+			this_card.power=Power.objects.get(id=15)
 		if power in ['20']:
-			card_to_update.power=Power.objects.get(id=16)
+			this_card.power=Power.objects.get(id=16)
 		if power in ['99']:
-			card_to_update.power=Power.objects.get(id=19)
-		card_to_update.save()
-	except:pass
+			this_card.power=Power.objects.get(id=19)
+		this_card.save()
+	except:broken['powers'] += 1
 	try:
-		touhgness = card['toughness']
-		card_to_update=Card.objects.get(id=counter)
+		toughness = card['toughness']
 		if toughness in ['-1']:
-			card_to_update.toughness = Toughness.objects.get(id=19)
+			this_card.toughness = Toughness.objects.get(id=19)
 		if toughness in ['0','-0','+0']:
-			card_to_update.toughness = Toughness.objects.get(id=20)
+			this_card.toughness = Toughness.objects.get(id=20)
 		if toughness in ['.5','1','*+1','1+*','+1','1.5']:
-			card_to_update.toughness = Toughness.objects.get(id=1)
+			this_card.toughness = Toughness.objects.get(id=1)
 		if toughness in ['2','+2','2.5','2+*']:
-			card_to_update.toughness = Toughness.objects.get(id=2)
+			this_card.toughness = Toughness.objects.get(id=2)
 		if toughness in ['3','+3','3.5']:
-			card_to_update.toughness = Toughness.objects.get(id=3)
+			this_card.toughness = Toughness.objects.get(id=3)
 		if toughness in ['4','+4']:
-			card_to_update.toughness = Toughness.objects.get(id=4)
+			this_card.toughness = Toughness.objects.get(id=4)
 		if toughness in ['5']:
-			card_to_update.toughness = Toughness.objects.get(id=5)
+			this_card.toughness = Toughness.objects.get(id=5)
 		if toughness in ['6']:
-			card_to_update.toughness = Toughness.objects.get(id=6)
+			this_card.toughness = Toughness.objects.get(id=6)
 		if toughness in ['7','7-*']:
-			card_to_update.toughness = Toughness.objects.get(id=7)
+			this_card.toughness = Toughness.objects.get(id=7)
 		if toughness in ['8']:
-			card_to_update.toughness = Toughness.objects.get(id=8)
+			this_card.toughness = Toughness.objects.get(id=8)
 		if toughness in ['9']:
-			card_to_update.toughness = Toughness.objects.get(id=9)
+			this_card.toughness = Toughness.objects.get(id=9)
 		if toughness in ['10']:
-			card_to_update.toughness = Toughness.objects.get(id=10)
+			this_card.toughness = Toughness.objects.get(id=10)
 		if toughness in ['11']:
-			card_to_update.toughness = Toughness.objects.get(id=11)
+			this_card.toughness = Toughness.objects.get(id=11)
 		if toughness in ['12']:
-			card_to_update.toughness = Toughness.objects.get(id=12)
+			this_card.toughness = Toughness.objects.get(id=12)
 		if toughness in ['13']:
-			card_to_update.toughness = Toughness.objects.get(id=13)
+			this_card.toughness = Toughness.objects.get(id=13)
 		if toughness in ['14']:
-			card_to_update.toughness = Toughness.objects.get(id=14)
+			this_card.toughness = Toughness.objects.get(id=14)
 		if toughness in ['15']:
-			card_to_update.toughness = Toughness.objects.get(id=15)
+			this_card.toughness = Toughness.objects.get(id=15)
 		if toughness in ['16']:
-			card_to_update.toughness = Toughness.objects.get(id=16)
+			this_card.toughness = Toughness.objects.get(id=16)
 		if toughness in ['17']:
-			card_to_update.toughness = Toughness.objects.get(id=17)
+			this_card.toughness = Toughness.objects.get(id=17)
 		if toughness in ['20']:
-			card_to_update.toughness = Toughness.objects.get(id=18)
+			this_card.toughness = Toughness.objects.get(id=18)
 		if toughness in ['99']:
-			card_to_update.toughness = Toughness.objects.get(id=21)
-		card_to_update.save()
-	except:pass
+			this_card.toughness = Toughness.objects.get(id=21)
+		this_card.save()
+	except:broken['toughness'] += 1
 	# try:
 	# 	colors = card['colors']
-	# 	this_card = Card.objects.get(id=counter)
+	
 	# 	for color in colors:
 	# 		if color == "W":
 	# 			this_color = Color.objects.get(id=1)
@@ -270,18 +282,24 @@ for card in data:
 
 	try:
 		colors = card['colors']
-		this_card = Card.objects.get(id=counter)
 		for color in colors:
-			this_color = Color.objects.filter(color=color).first()
+			this_color = Colors.objects.filter(color=color).first()
 			this_color.cards.add(this_card)
-	except:pass
+	except:broken['colors'] += 1
 
+	try:
+		colors = card['color_identity']
+		for color in colors:
+			this_color = Color_identity.objects.filter(color_iden=color).first()
+			this_color.cards.add(this_card)
+	except:broken['color_idens'] += 1
+#MERGE THIS WITH ONE FOR COLORS AND COMPARE COLOR LIST OT COLOR_IDENTITY LIST
 
 
 
 	# try:
 	# 	colors = card['color_identity']
-	# 	this_card = Card.objects.get(id=counter)
+	
 	# 	for color in colors:
 	# 		if color == "W":
 	# 			this_color = Color_identity.objects.get(id=1)
@@ -304,59 +322,53 @@ for card in data:
 	# except: pass
 
 
-	try:
-		colors = card['color_identity']
-		this_card = Card.objects.get(id=counter)
-		for color in colors:
-			this_color = Color_identity.objects.filter(color_iden=color).first()
-			this_color.cards.add(this_card)
-	except:pass
-
-
 
 	try:
 		keywords = card['keywords']
-		this_card = Card.objects.get(id=counter)
 		for keyword in keywords:
-			this_keyword = Keywords.objects.filter(keyword=keyword)[0]
+			this_keyword = Keyword.objects.filter(keyword=keyword)[0]
 			this_keyword.cards.add(this_card)
-	except:pass
+	except:broken['keywords'] += 1
 
 	try:
-		this_card = Card.objects.get(id=counter)
 		this_card.layout = Layout.objects.filter(layout=card['layout'])[0]
 		this_card.save()
-	except:pass
+	except:broken['layout'] += 1
 
 	try:
 		t = set(card['type_line'].lower().split())
-		this_card = Card.objects.get(id=counter)
 		types_to_add = list(t.intersection(basic_types_set))
 		for t in types_to_add:
-			typer = Card_type.objects.filter(card_type=t)
+			typer = Card_type.objects.filter(card_type=t).first()
 			typer.cards.add(this_card)
-	except:pass
+	except:broken['typer'] += 1
 	try:
-		this_card = Card.objects.get(id=counter)
 		this_card.type_line=card['type_line']
 		this_card.save()
-	except:pass
+	except:broken['types_line'] += 1
 
 	try:
-		this_card = Card.objects.get(id=counter)
 		this_card.mana_cost = Mana_cost.objects.filter(mana_cost=card['mana_cost'])[0]
 		this_card.save()
-	except:pass
+	except:broken['mana_cost'] += 1
 
 	try:
-		this_card = Card.objects.get(id=counter)
 		this_card.cmc=Cmc.objects.filter(cmc=card['cmc'])[0]
-	except:pass
+		this_card.save()
+	except:broken['cmc'] += 1
+	# try:
 
+	# except: broken['legals'] += 1
 	counter += 1
 
-# import pickle
-# from card_search.models import *
+with open("..//brokens.p","wb") as fh:
+	pickle.dump(broken, fh)
+fh.close()
+
+
+with open("..//name_legal.p","rb") as fh2:
+	name_legal = pickle.load(fh2)
+fh2.close()
 
 legals = ['standard', 'future', 'historic', 'gladiator', 'pioneer', 'modern', 'legacy', 
 'pauper', 'vintage', 'penny', 'commander', 'brawl', 'duel', 'oldschool', 'premodern']
@@ -365,22 +377,14 @@ for l in legals:
 	Legalities.objects.create(name=l)
 
 
-
-with open("..//all_cards7-24.p","rb") as fh:
-	data = pickle.load(fh)
-fh.close()
-with open("..//name_legal.p","rb") as fh2:
-	name_legal = pickle.load(fh2)
-fh2.close()
-
-
 all_cards = Card.objects.all()
-
+d = {}
 for card in all_cards:
-
 	for l in legals:
 		if name_legal[card.name][l]=="not_legal":
 			leg = False
 		else:
 			leg = True
 		Legal.objects.create(name=Legalities.objects.filter(name=l).first(), legal = leg, card = card)
+
+		#MEMOIZE THE CARD NAMES USING A DICTIONARY SINCE THEY ARE THE SAM FOR ALL OF THENAMES

@@ -1,14 +1,11 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import *
+from .forms import *
+from django.core import serializers
+import json
 def index(request):
 	return render(request, "index.html")
 
-
-# def clean_basic_search(input_str):
-# 	string_list = input_str.lower().split()
-# 	for s in string_list:
-# 		s = s.capitalize()
-# 	return " ".join(string_list)
 
 def name_search(request):
 	request.session['card_name'] = request.GET['name_search_input']
@@ -23,38 +20,24 @@ def name_search_return(request):
 	return render(request, "single_card.html", context)
 
 def advanced_search(request):
-	return render(request, "advanced.html")
+	form = AdvancedSearch()
+	return render(request, "advanced.html", {"form":form})
 
 def advanced_search_process(request):
-	colors = ""
-	try:
-		blue = request.GET['blue']
-		colors += blue
-	except:pass
-	try:
-		black = request.GET['black']
-		colors += black
-	except:pass
-	try:
-		green = request.GET['green']
-		colors += green
-	except:pass
-	try:
-		white = request.GET['white']
-		colors += white
-	except:pass
-	try:
-		red = request.GET['red']
-		colors += red
-	except:pass
-	request.session['colors'] = Colors.objects.filter(color=colors.split())
-
-
+	form = AdvancedSearch(request.POST)
+	if form.is_valid():
+		toughness_cards = Toughness.objects.toughness_query(request)
+		color_cards = Colors.objects.colors_query(request)
+		cards_list = []
+		cards_to_return = color_cards.intersection(toughness_cards)
+		data = serializers.serialize('json',cards_to_return[:60],fields=('name','normal','colors'))
+		json_data = json.loads(data)
+		request.session['returned_cards'] = json_data
 	return redirect("/advanced_search_return")
 
 def advanced_search_return(request):
 	context = {
-		'colors':request.session['colors']
+		'returned_cards':request.session['returned_cards'],
 	}
 	request.session.flush()
 	return render(request, "multi_card.html", context)
