@@ -22,23 +22,64 @@ class ToughnessManager(models.Manager):
 class Toughness(models.Model):
 	toughness = models.IntegerField()
 	objects = ToughnessManager()
+class PowerManager(models.Manager):
+	def power_query(self, request):
+		power = request.POST['power']
+		power_equality = request.POST['power_equality']
+		if power == '99':
+			return None
+		elif power_equality == '1':#equals
+			return Power.objects.filter(power=int(power)).first().cards.all()
+		elif power_equality == '2':#gte
+			return Power.objects.filter(power__gte=int(power)).first().cards.all()
+		elif power_equality == '3':#lte
+			return Power.objects.filter(power__lte=int(power)).first().cards.all()
+		elif power_equality == '4':#gt
+			return Power.objects.filter(power__gt=int(power)).first().cards.all()
+		elif power_equality == '5':#lt
+			return Power.objects.filter(power__lt=int(power)).first().cards.all()
 
 
 class Power(models.Model):
 	power = models.IntegerField()
+	objects = PowerManager()
 
+class ArtistManager(models.Manager):
+	def artist_query(self, request):
+		artist_name = request.POST['artist']
+		if artist_name == "":
+			return None
+		
+		artists = Artist.objects.filter(artist_name__icontains=artist_name)
+		artist_cards = Card.objects.none()
+		for a in artists:
+			if len(a.cards.all()) > 0:
+				artist_cards = artist_cards.union(a.cards.all())
+		return artist_cards
 class Artist(models.Model):
 	artist_name = models.CharField(max_length=55)
-
+	objects = ArtistManager()
 class Digital(models.Model):
 	digital = models.BooleanField()
-
+class RarityManager(models.Manager):
+	def rarity_query(self, request):
+		if request.POST['rarity'] == '0':
+			return None
+		else:
+			return Rarity.objects.filter(rarity=int(request.POST['rarity'])).first().cards.all()
 class Rarity(models.Model):
 	rarity = models.IntegerField()
+	objects = RarityManager()
 
+class SetManager(models.Manager):
+	def set_query(self, request):
+		if request.POST['set_name'] =="":
+			return None
+		else:
+			
 class Set_name(models.Model):
 	set_name = models.CharField(max_length=50)
-
+	objects = SetManager()
 class Layout(models.Model):
 	layout= models.CharField(max_length=45)
 
