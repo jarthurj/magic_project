@@ -61,6 +61,7 @@ class Artist(models.Model):
 	objects = ArtistManager()
 class Digital(models.Model):
 	digital = models.BooleanField()
+
 class RarityManager(models.Manager):
 	def rarity_query(self, request):
 		if request.POST['rarity'] == '0':
@@ -73,10 +74,12 @@ class Rarity(models.Model):
 
 class SetManager(models.Manager):
 	def set_query(self, request):
-		if request.POST['set_name'] =="":
+		if request.POST['s_name'] == "0":
 			return None
 		else:
-			
+			sets = Set_name.objects.all().order_by('set_name')
+			cards = sets[int(request.POST['s_name']) - 1].cards.all()
+			return cards
 class Set_name(models.Model):
 	set_name = models.CharField(max_length=50)
 	objects = SetManager()

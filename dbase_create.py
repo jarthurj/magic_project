@@ -152,6 +152,11 @@ for card in data:
 	)
 	this_card = Card.objects.get(id=counter)
 	try:
+		s_name = card['set_name']
+		this_card.set_name = Set_name.objects.filter(set_name=s_name).first()
+		this_card.save()
+	except:pass
+	try:
 		flavor_text = card['flavor_text']
 		this_card.flavor_text = flavor_text
 		this_card.save()

@@ -31,8 +31,9 @@ def advanced_search_process(request):
 		power_cards = Power.objects.power_query(request)
 		artist_cards = Artist.objects.artist_query(request)
 		rarity_cards = Rarity.objects.rarity_query(request)
+		set_cards = Set_name.objects.set_query(request)
 		cards_list = [toughness_cards, power_cards, color_cards,
-					artist_cards, rarity_cards]
+					artist_cards, rarity_cards, set_cards]
 		while None in cards_list:
 			cards_list.remove(None)
 		if len(cards_list) > 1:
