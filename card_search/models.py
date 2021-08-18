@@ -86,12 +86,33 @@ class Set_name(models.Model):
 class Layout(models.Model):
 	layout= models.CharField(max_length=45)
 
+class ManaManager(models.Manager):
+	def mana_query(request):
+		pass
 class Mana_cost(models.Model):
 	mana_cost= models.CharField(max_length=45)
+	objects = ManaManager()
 
+
+class CmcManager(models.Manager):
+	def cmc_query(self, request):
+		cmc = request.POST['cmc_q']
+		cmc_equality = request.POST['cmc_equality']
+		if cmc == '99':
+			return None
+		elif cmc_equality == '1':#equals
+			return Cmc.objects.filter(cmc=int(cmc)).first().cards.all()
+		elif cmc_equality == '2':#gte
+			return Cmc.objects.filter(cmc__gte=int(cmc)).first().cards.all()
+		elif cmc_equality == '3':#lte
+			return Cmc.objects.filter(cmc__lte=int(cmc)).first().cards.all()
+		elif cmc_equality == '4':#gt
+			return Cmc.objects.filter(cmc__gt=int(cmc)).first().cards.all()
+		elif cmc_equality == '5':#lt
+			return Cmc.objects.filter(cmc__lt=int(cmc)).first().cards.all()
 class Cmc(models.Model):
 	cmc = models.FloatField()
-
+	objects = CmcManager()
 class Legalities(models.Model):
 	name = models.CharField(max_length=45)
 
@@ -154,6 +175,7 @@ class Colors(models.Model):
 class Color_identity(models.Model):
 	color_iden = models.CharField(max_length=1)
 	cards = models.ManyToManyField(Card, related_name="color_idens")
+
 class Keyword(models.Model):
 	keyword = models.CharField(max_length=45)
 	cards = models.ManyToManyField(Card, related_name="keywords")

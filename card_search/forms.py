@@ -9,7 +9,6 @@ COLORS = (
 	('U','Blue'),
 )
 
-
 XORS = (
 	(1,'Only These Colors'),
 	(2,'Includes These Colors'),
@@ -47,6 +46,7 @@ TOUGHNESS_MOD = (
 	(4,">"),
 	(5,"<")
 )
+
 POWER = (
 	(99,'-'),
 	(0,'0'),
@@ -776,8 +776,37 @@ SETS = (
 	( 682 , "Zendikar Rising Substitute Cards" ),
 	( 683 , "Zendikar Rising Tokens" ),
 	( 684 , "Zendikar Tokens" ),
-	)
+)
 
+CMCS = (
+	(99,"-"),
+	(0,"0.0"),
+	(1,"1.0"),
+	(2,"2.0"),
+	(3,"3.0"),
+	(4,"4.0"),
+	(5,"5.0"),
+	(6,"6.0"),
+	(7,"7.0"),
+	(8,"8.0"),
+	(9,"9.0"),
+	(10,"10.0"),
+	(11,"11.0"),
+	(12,"12.0"),
+	(13,"13.0"),
+	(14,"14.0"),
+	(15,"15.0"),
+	(16,"16.0"),
+
+)
+
+CMC_MOD = (
+	(1,"="),
+	(2,"\u2265"),
+	(3,"\u2264"),
+	(4,">"),
+	(5,"<")
+)
 class AdvancedSearch(forms.Form):
 
 	colors = forms.MultipleChoiceField(
@@ -827,14 +856,21 @@ class AdvancedSearch(forms.Form):
 		required=False,
 		widget=forms.Select(choices=RARITY)
 		)
-	# set_name = forms.ChoiceField(
-	# 	label="Set Name",
-	# 	required=False,
-	# 	widget=forms.Select(choices=SET_NAME)
-	# 	)
 	s_name = forms.ChoiceField(
 		choices = SETS,
 		label="Sets:",
 		required=False,
 		widget=forms.Select(choices=SETS)
+		)
+	cmc_equality = forms.ChoiceField(
+		choices = CMC_MOD,
+		label="Cmc:",
+		required=False,
+		widget=forms.Select(choices=CMC_MOD)
+		)
+	cmc_q = forms.ChoiceField(
+		choices = CMCS,
+		label="",
+		required=False,
+		widget=forms.Select(choices=CMCS)
 		)
