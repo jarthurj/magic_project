@@ -33,9 +33,10 @@ def advanced_search_process(request):
 		rarity_cards = Rarity.objects.rarity_query(request)
 		set_cards = Set_name.objects.set_query(request)
 		cmc_cards = Cmc.objects.cmc_query(request)
+		keyword_cards = Keyword.objects.keyword_query(request)
 		cards_list = [toughness_cards, power_cards, color_cards,
 					artist_cards, rarity_cards, set_cards,
-					cmc_cards]
+					cmc_cards, keyword_cards,]
 		while None in cards_list:
 			cards_list.remove(None)
 		if len(cards_list) > 1:
