@@ -178,17 +178,29 @@ class Color_identity(models.Model):
 
 class KeywordManager(models.Manager):
 	def keyword_query(self, request):
-		keyword = request.POST['keyword']
-		keyword_cards = Keyword.objects.get(id=int(keyword)).cards.all()
-		return keyword_cards
+		if request.POST['keyword'] == '0':
+			return None
+		else:
+			keyword = request.POST['keyword']
+			keyword_cards = Keyword.objects.get(id=int(keyword)).cards.all()
+			return keyword_cards
 class Keyword(models.Model):
 	keyword = models.CharField(max_length=45)
 	cards = models.ManyToManyField(Card, related_name="keywords")
 	objects = KeywordManager()
+
+class CardTypeManager(models.Manager):
+	def card_type_query(self, request):
+		if request.POST['card_type'] == '0':
+			return None
+		else:
+			card_type = request.POST['card_type']
+			cards = Card_type.objects.get(id=int(card_type)).cards.all()
+			return cards
 class Card_type(models.Model):
 	card_type= models.CharField(max_length=45)
 	cards = models.ManyToManyField(Card,related_name="card_types")
-
+	objects = CardTypeManager()
 #Powers to clean up
 # '∞','?', '*²', '*', 
 

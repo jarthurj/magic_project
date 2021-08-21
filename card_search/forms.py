@@ -1134,7 +1134,13 @@ class AdvancedSearch(forms.Form):
 		)
 	keyword = forms.ChoiceField(
 		choices = KEYWORDS,
-		label="Kewords",
+		label="Keywords",
 		required=False,
 		widget=forms.Select(choices=KEYWORDS)
+		)
+	card_type = forms.ChoiceField(
+		choices = TYPES,
+		label="Types",
+		required=False,
+		widget=forms.Select(choices=TYPES)
 		)
