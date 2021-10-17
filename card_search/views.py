@@ -5,8 +5,7 @@ from django.core import serializers
 import json
 def index(request):
 	return render(request, "index.html")
-
-
+#####testing
 def name_search(request):
 	request.session['card_name'] = request.GET['name_search_input']
 	return redirect("/name_search_return")
