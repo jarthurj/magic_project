@@ -13,8 +13,9 @@ def name_search(request):
 def name_search_return(request):
 	card = Card.objects.filter(name=request.session['card_name']).first()
 	context = {
-		"name" : card.name,
-		"url" : card.normal
+		# "name" : card.name,
+		# "url" : card.normal,
+		"card_objects" : request.session['card_name']
 	}
 	return render(request, "single_card.html", context)
 
