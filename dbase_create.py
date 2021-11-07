@@ -1,6 +1,6 @@
 import pickle
 from card_search.models import *
-fh = open("..//all_artists2.p","rb")
+fh = open("../all_artists2.p","rb")
 artists = pickle.load(fh)
 fh.close()
 
@@ -34,18 +34,18 @@ Digital.objects.create(digital=False)#id2
 for x in range(1,7):
 	Rarity.objects.create(rarity=x)
 
-fh = open("..//set_names.p","rb")
+fh = open("../set_names.p","rb")
 set_names = pickle.load(fh)
 fh.close()
 
 for setx in set_names:
 	Set_name.objects.create(set_name=setx)
 
-fh = open("..//all_cards7-24.p","rb")
+fh = open("../all_cards7-24.p","rb")
 data = pickle.load(fh)
 fh.close()
 
-fh = open("..//keywords.p","rb")
+fh = open("../keywords.p","rb")
 keywords = pickle.load(fh)
 fh.close()
 
@@ -53,7 +53,7 @@ for keyword in keywords:
 	Keyword.objects.create(keyword=keyword)
 
 
-fh = open("..//layouts.p","rb")
+fh = open("../layouts.p","rb")
 layouts = pickle.load(fh)
 fh.close()
 
@@ -366,12 +366,12 @@ for card in data:
 	# except: broken['legals'] += 1
 	counter += 1
 
-with open("..//brokens.p","wb") as fh:
+with open("../brokens.p","wb") as fh:
 	pickle.dump(broken, fh)
 fh.close()
 
 
-with open("..//name_legal.p","rb") as fh2:
+with open("../name_legal.p","rb") as fh2:
 	name_legal = pickle.load(fh2)
 fh2.close()
 
