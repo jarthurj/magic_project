@@ -140,7 +140,7 @@ class Card(models.Model):
 	cmc = models.ForeignKey(Cmc, related_name="cards", on_delete=models.CASCADE,null=True)
 
 class Legal(models.Model):
-	name = models.ForeignKey(Legalities, related_name="legals", on_delete=models.CASCADE)
+	name = models.ForeignKey(Legalities, related_name="legalities", on_delete=models.CASCADE)
 	legal = models.BooleanField(null=True)
 	card = models.ForeignKey(Card, related_name="legals", on_delete=models.CASCADE, null=True)
 

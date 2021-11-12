@@ -389,7 +389,7 @@ for card in all_cards:
 		if name_legal[card.name][l]=="not_legal":
 			leg = False
 		else:
-			leg = True
+			leg = True	
 		Legal.objects.create(name=Legalities.objects.filter(name=l).first(), legal = leg, card = card)
 
 		#MEMOIZE THE CARD NAMES USING A DICTIONARY SINCE THEY ARE THE SAM FOR ALL OF THENAMES
