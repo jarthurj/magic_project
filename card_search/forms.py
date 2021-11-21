@@ -1065,6 +1065,25 @@ KEYWORDS = (
 	(235, 'Wither'),
 	(236, 'Wizardcycling')
 )
+
+FORMATS = (
+	(0, "-"),
+	(1, "standard"),
+	(2, "future"),
+	(3, "historic"),
+	(4, "gladiator"),
+	(5, "pioneer"),
+	(6, "modern"),
+	(7, "legacy"),
+	(8, "pauper"),
+	(9, "vintage"),
+	(10, "penny"),
+	(11, "commander"),
+	(12, "pbrawl"),
+	(13, "duel"),
+	(14, "oldschool"),
+	(15, "premodern")
+)
 class AdvancedSearch(forms.Form):
 
 	colors = forms.MultipleChoiceField(
@@ -1143,4 +1162,10 @@ class AdvancedSearch(forms.Form):
 		label="Types",
 		required=False,
 		widget=forms.Select(choices=TYPES)
+		)
+	game_format = forms.ChoiceField(
+		choices = FORMATS,
+		label="Cards Legal In:",
+		required=False,
+		widget=forms.Select(choices=FORMATS)
 		)
