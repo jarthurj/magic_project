@@ -4,7 +4,7 @@ from .forms import *
 from django.core import serializers
 import json
 def index(request):
-	return render(request, "index.html")
+	return render(request, "advanced.html")
 #####testing
 def name_search(request):
 	request.session['card_name'] = request.GET['name_search_input']
@@ -35,10 +35,9 @@ def advanced_search_process(request):
 		cmc_cards = Cmc.objects.cmc_query(request)
 		keyword_cards = Keyword.objects.keyword_query(request)
 		card_type_cards = Card_type.objects.card_type_query(request)
-		legal_cards = Legal.objects.legals_query(request)
 		cards_list = [toughness_cards, power_cards, color_cards,
 					artist_cards, rarity_cards, set_cards,
-					cmc_cards, keyword_cards, card_type_cards, legal_cards]
+					cmc_cards, keyword_cards, card_type_cards]
 		while None in cards_list:
 			cards_list.remove(None)
 		if len(cards_list) > 1:

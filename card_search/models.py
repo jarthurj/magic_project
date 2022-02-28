@@ -59,8 +59,6 @@ class ArtistManager(models.Manager):
 class Artist(models.Model):
 	artist_name = models.CharField(max_length=55)
 	objects = ArtistManager()
-class Digital(models.Model):
-	digital = models.BooleanField()
 
 class RarityManager(models.Manager):
 	def rarity_query(self, request):
@@ -113,8 +111,7 @@ class CmcManager(models.Manager):
 class Cmc(models.Model):
 	cmc = models.FloatField()
 	objects = CmcManager()
-class Legalities(models.Model):
-	name = models.CharField(max_length=45)
+
 
 class Card(models.Model):
 	name = models.CharField(max_length=150)
@@ -128,52 +125,16 @@ class Card(models.Model):
 	type_line = models.CharField(max_length=100, null=True)
 
 	artist = models.ForeignKey(Artist, related_name="cards", on_delete=models.CASCADE)
-	digital = models.ForeignKey(Digital, related_name="cards", on_delete=models.CASCADE)
 	rarity = models.ForeignKey(Rarity, related_name="cards", on_delete=models.CASCADE)
 	set_name =models.ForeignKey(Set_name, related_name="cards", on_delete=models.CASCADE, null=True)
 
 	power = models.ForeignKey(Power, related_name="cards", on_delete=models.CASCADE, null=True)
 	toughness = models.ForeignKey(Toughness,related_name="cards", on_delete=models.CASCADE, null=True)
 
-	layout = models.ForeignKey(Layout, related_name="cards", on_delete=models.CASCADE, null=True)
 	mana_cost = models.ForeignKey(Mana_cost, related_name="cards", on_delete=models.CASCADE,null=True)
 	cmc = models.ForeignKey(Cmc, related_name="cards", on_delete=models.CASCADE,null=True)
 
-class Legal_Manager(models.Manager):
-	def legals_query(self, request):
-		game_format = int(request.POST['game_format'])
-		if game_format == 0:
-			return None
-		else:
-			empty_card_Queryset = Card.objects.none()
-			legals = Legal.objects.filter(name=Legalities.objects.get(id=int(game_format)),legal=True)
-			for leg in legals:
-				empty_card_Queryset.union(leg.card)
-			return empty_card_Queryset
-class Legal(models.Model):
-	name = models.ForeignKey(Legalities, related_name="legalities", on_delete=models.CASCADE)
-	legal = models.BooleanField(null=True)
-	card = models.ForeignKey(Card, related_name="legals", on_delete=models.CASCADE, null=True)#Does this need to be a ManytoMany field?
-	objects = Legal_Manager()
 
-# to query legals for a card: thing = Card.objects.get(id=CARDID).legals.all(),
-#							thing.objects.get(id=1).legal
-# to query all cards in a game type thing = Legal.objects.filter(name=Legalities.objects.get(id=GAMETYPEID))
-# 1 standard
-# 2 future
-# 3 historic
-# 4 gladiator
-# 5 pioneer
-# 6 modern
-# 7 legacy
-# 8 pauper
-# 9 vintage
-# 10 penny
-# 11 commander
-# 12 pbrawl
-# 13 duel
-# 14 oldschool
-# 15 premodern
 class Colors_Manager(models.Manager):
 	def colors_query(self,request):
 		xors = request.POST["colors_options"]

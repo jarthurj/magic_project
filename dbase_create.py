@@ -27,10 +27,6 @@ broken = {
 artists = list(artists)
 for artist in artists:
 	Artist.objects.create(artist_name = artist)
-
-Digital.objects.create(digital=True)#id1
-Digital.objects.create(digital=False)#id2
-
 for x in range(1,7):
 	Rarity.objects.create(rarity=x)
 
@@ -53,12 +49,12 @@ for keyword in keywords:
 	Keyword.objects.create(keyword=keyword)
 
 
-fh = open("../layouts.p","rb")
-layouts = pickle.load(fh)
-fh.close()
+# fh = open("../layouts.p","rb")
+# layouts = pickle.load(fh)
+# fh.close()
 
-for l in layouts:
-	Layout.objects.create(layout=l)
+# for l in layouts:
+# 	Layout.objects.create(layout=l)
 
 rare_dict = {'common':1,'uncommon':2,'rare':3,'mythic':4,'special':5,'bonus':6}
 
@@ -147,7 +143,6 @@ for card in data:
 	Card.objects.create(
 		name=card['name'],
 		artist = Artist.objects.filter(artist_name=card['artist'])[0],
-		digital = Digital.objects.filter(digital=card['digital'])[0],
 		rarity = Rarity.objects.get(id=rare_dict[card['rarity']]),
 	)
 	this_card = Card.objects.get(id=counter)
@@ -366,30 +361,29 @@ for card in data:
 	# except: broken['legals'] += 1
 	counter += 1
 
-with open("../brokens.p","wb") as fh:
-	pickle.dump(broken, fh)
-fh.close()
+# with open("../brokens.p","wb") as fh:
+# 	pickle.dump(broken, fh)
+# fh.close()
 
 
-with open("../name_legal.p","rb") as fh2:
-	name_legal = pickle.load(fh2)
-fh2.close()
+# with open("../name_legal.p","rb") as fh2:
+# 	name_legal = pickle.load(fh2)
+# fh2.close()
 
-legals = ['standard', 'future', 'historic', 'gladiator', 'pioneer', 'modern', 'legacy', 
-'pauper', 'vintage', 'penny', 'commander', 'brawl', 'duel', 'oldschool', 'premodern']
+# legals = ['standard', 'future', 'historic', 'gladiator', 'pioneer', 'modern', 'legacy', 
+# 'pauper', 'vintage', 'penny', 'commander', 'brawl', 'duel', 'oldschool', 'premodern']
 
-for l in legals:
-	Legalities.objects.create(name=l)
+# for l in legals:
+# 	Legalities.objects.create(name=l)
 
-
-all_cards = Card.objects.all()
-d = {}
-for card in all_cards:
-	for l in legals:
-		if name_legal[card.name][l]=="not_legal":
-			leg = False
-		else:
-			leg = True	
-		Legal.objects.create(name=Legalities.objects.filter(name=l).first(), legal = leg, card = card)
-
-		#MEMOIZE THE CARD NAMES USING A DICTIONARY SINCE THEY ARE THE SAM FOR ALL OF THENAMES
+# all_cards = Card.objects.all()
+# for card in all_cards:
+# 	for l in legals:
+# 		if name_legal[card.name][l]=="not_legal":
+# 			leg = False
+# 		else:
+# 			leg = True
+# 			legalities = Legalities.objects.filter(name=l).first()
+# 			legalities.cards.add(card)
+# 		this_legal = Legal.objects.create(name=Legalities.objects.filter(name=l).first(),legal=leg,card=card)
+# 		this_legal.save()
