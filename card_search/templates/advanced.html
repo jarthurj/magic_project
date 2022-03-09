@@ -2,14 +2,25 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<link rel="stylesheet" type="text/css" href="./static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./static/css/style.css">
+	<title>MTG Card Search</title>
 </head>
 <body>
+	<nav class="nav_bar">
+		<div class="logo">CARDder</div>
+		<div class="nav-links">
+			<ul>
+				<a><li>Home</li></a>
+				<a><li>About</li></a>
+			</ul>
+		</div>
+	</nav>
 	<form action="/advanced_search" method="post">
 		{% csrf_token %}
+		<input name="name_search_input" type="text">
 		{{form}}
 		<button type="submit">Submit</button>
 	</form>
-		
 </body>
 </html>

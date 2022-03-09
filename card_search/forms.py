@@ -1073,7 +1073,7 @@ class AdvancedSearch(forms.Form):
 		choices=COLORS,
 		label="Colors:",
 		required=False,
-		widget=forms.CheckboxSelectMultiple,
+		widget=forms.CheckboxSelectMultiple(attrs={'class':'color_remotes'}),
 		)
 	colors_options = forms.ChoiceField(
 		choices =XORS,
@@ -1081,6 +1081,50 @@ class AdvancedSearch(forms.Form):
 		required=False,
 		widget=forms.Select(choices=XORS)
 		)
+
+
+	cmc_equality = forms.ChoiceField(
+		choices = CMC_MOD,
+		label="Cmc:",
+		required=False,
+		widget=forms.Select(choices=CMC_MOD)
+		)
+	cmc_q = forms.ChoiceField(
+		choices = CMCS,
+		label="",
+		required=False,
+		widget=forms.Select(choices=CMCS)
+		)
+	card_type = forms.ChoiceField(
+		choices = TYPES,
+		label="Types",
+		required=False,
+		widget=forms.Select(choices=TYPES)
+		)
+	s_name = forms.ChoiceField(
+		choices = SETS,
+		label="Sets:",
+		required=False,
+		widget=forms.Select(choices=SETS)
+		)
+	rarity = forms.ChoiceField(
+		choices = RARITY,
+		label="Rarity:",
+		required=False,
+		widget=forms.Select(choices=RARITY)
+		)
+	keyword = forms.ChoiceField(
+		choices = KEYWORDS,
+		label="Keywords",
+		required=False,
+		widget=forms.Select(choices=KEYWORDS)
+		)
+	artist = forms.CharField(
+		label="Artist:",
+		required=False,
+		widget=forms.TextInput(attrs={'placeholder':'Artist'}),
+		)
+
 	toughness_equality = forms.ChoiceField(
 		choices =TOUGHNESS_MOD,
 		label="Toughness:",
@@ -1105,44 +1149,4 @@ class AdvancedSearch(forms.Form):
 		label="",
 		required=False,
 		widget=forms.Select(choices=POWER)
-		)
-	artist = forms.CharField(
-		label="Artist:",
-		required=False,
-		)
-	rarity = forms.ChoiceField(
-		choices = RARITY,
-		label="Rarity:",
-		required=False,
-		widget=forms.Select(choices=RARITY)
-		)
-	s_name = forms.ChoiceField(
-		choices = SETS,
-		label="Sets:",
-		required=False,
-		widget=forms.Select(choices=SETS)
-		)
-	cmc_equality = forms.ChoiceField(
-		choices = CMC_MOD,
-		label="Cmc:",
-		required=False,
-		widget=forms.Select(choices=CMC_MOD)
-		)
-	cmc_q = forms.ChoiceField(
-		choices = CMCS,
-		label="",
-		required=False,
-		widget=forms.Select(choices=CMCS)
-		)
-	keyword = forms.ChoiceField(
-		choices = KEYWORDS,
-		label="Keywords",
-		required=False,
-		widget=forms.Select(choices=KEYWORDS)
-		)
-	card_type = forms.ChoiceField(
-		choices = TYPES,
-		label="Types",
-		required=False,
-		widget=forms.Select(choices=TYPES)
 		)

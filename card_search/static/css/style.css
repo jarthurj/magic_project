@@ -1,0 +1,29 @@
+body{
+    background-color: #BDD9BF;
+}
+#container {
+  font-family: Georgia, serif;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: auto;
+}
+.nav_bar{
+  background-color: #2E4052;
+  display: flex;
+  justify-content: space-between;
+  color: #FFFFFF;
+  align-items: center;
+}
+
+a:hover{
+  color: #FFC857;
+}
+
+@media (max-width:  600px){
+  .nav_bar{
+    flex-direction: column ;
+  }
+}
