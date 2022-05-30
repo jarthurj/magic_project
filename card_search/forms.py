@@ -1073,80 +1073,97 @@ class AdvancedSearch(forms.Form):
 		choices=COLORS,
 		label="Colors:",
 		required=False,
-		widget=forms.CheckboxSelectMultiple(attrs={'class':'color_remotes'}),
+		widget=forms.CheckboxSelectMultiple(attrs={
+			'class':'color_remotes'}),
 		)
 	colors_options = forms.ChoiceField(
 		choices =XORS,
 		label="Colors Modifier:",
 		required=False,
-		widget=forms.Select(choices=XORS)
+		widget=forms.Select(choices=XORS,attrs={
+			'class':'color_options',
+			})
 		)
 
 
 	cmc_equality = forms.ChoiceField(
 		choices = CMC_MOD,
-		label="Cmc:",
+		label="CMC:",
 		required=False,
-		widget=forms.Select(choices=CMC_MOD)
+		widget=forms.Select(choices=CMC_MOD, attrs={
+			'class':'line_up',
+			})
 		)
 	cmc_q = forms.ChoiceField(
 		choices = CMCS,
 		label="",
 		required=False,
-		widget=forms.Select(choices=CMCS)
+		widget=forms.Select(choices=CMCS, attrs={
+			"class":"line_up"
+			})
 		)
 	card_type = forms.ChoiceField(
 		choices = TYPES,
-		label="Types",
+		label="TYPES",
 		required=False,
 		widget=forms.Select(choices=TYPES)
 		)
 	s_name = forms.ChoiceField(
 		choices = SETS,
-		label="Sets:",
+		label="SETS:",
 		required=False,
 		widget=forms.Select(choices=SETS)
 		)
 	rarity = forms.ChoiceField(
 		choices = RARITY,
-		label="Rarity:",
+		label="RARITY:",
 		required=False,
 		widget=forms.Select(choices=RARITY)
 		)
 	keyword = forms.ChoiceField(
 		choices = KEYWORDS,
-		label="Keywords",
+		label="KEYWORDS",
 		required=False,
 		widget=forms.Select(choices=KEYWORDS)
 		)
 	artist = forms.CharField(
-		label="Artist:",
+		label="ARTIST:",
 		required=False,
-		widget=forms.TextInput(attrs={'placeholder':'Artist'}),
+		widget=forms.TextInput(attrs={
+			'placeholder':'Artist',
+			'display':'block'}),
 		)
 
 	toughness_equality = forms.ChoiceField(
 		choices =TOUGHNESS_MOD,
-		label="Toughness:",
+		label="TOUGHNESS:",
 		required=False,
-		widget=forms.Select(choices=TOUGHNESS_MOD)
+		widget=forms.Select(choices=TOUGHNESS_MOD, attrs={
+			"class":"line_up"
+			})
 		)
 	toughness = forms.ChoiceField(
 		choices =TOUGHNESS,
 		label="",
 		required=False,
-		widget=forms.Select(choices=TOUGHNESS)
+		widget=forms.Select(choices=TOUGHNESS, attrs={
+			"class":"line_up"
+			})
 		)
 
 	power_equality = forms.ChoiceField(
 		choices =POWER_MOD,
-		label="Power:",
+		label="POWER:",
 		required=False,
-		widget=forms.Select(choices=POWER_MOD)
+		widget=forms.Select(choices=POWER_MOD, attrs={
+			"class":"line_up empty"
+			})
 		)
 	power = forms.ChoiceField(
 		choices =POWER,
 		label="",
 		required=False,
-		widget=forms.Select(choices=POWER)
+		widget=forms.Select(choices=POWER, attrs={
+			"class":"line_up"
+			})
 		)

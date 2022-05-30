@@ -4,22 +4,33 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="./static/css/style.css">
+	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 	<title>MTG Card Search</title>
 </head>
 <body>
+	<script>
+		$(document).ready(function() {
+			$(".line_up").parent().css("display","inline-block");
+			$(".empty").parent().before("<div></div>")
+		});
+	</script>
 	<nav class="nav_bar">
 		<div class="logo">CARDder</div>
 		<div class="nav-links">
 			<ul>
-				<a><li>Home</li></a>
-				<a><li>About</li></a>
+				<a><li>HOME</li></a>
+				<a><li>ABOUT</li></a>
 			</ul>
 		</div>
 	</nav>
 	<form action="/advanced_search" method="post">
 		{% csrf_token %}
-		<input name="name_search_input" type="text">
-		{{form}}
+		<div class="name_search">
+			<label for="name_search">CARD NAME:<input name="name_search_input" type="text" id="name_search"></label>
+		</div>
+		<div class="former">
+			{{form.as_p}}
+		</div>
 		<button type="submit">Submit</button>
 	</form>
 </body>
