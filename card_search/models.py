@@ -120,7 +120,7 @@ class Card(models.Model):
 
 	small = models.URLField()
 	normal = models.URLField()
-	large = models.URLField()
+	# large = models.URLField()
 
 	type_line = models.CharField(max_length=100, null=True)
 

@@ -165,7 +165,7 @@ for card in data:
 		img_uris = card['image_uris']
 		this_card.small = card['image_uris']['small']
 		this_card.normal = card['image_uris']['normal']
-		this_card.large = card['image_uris']['large']
+		# this_card.large = card['image_uris']['large']
 		this_card.save()
 	except:broken['image_urls'] += 1
 	try:
