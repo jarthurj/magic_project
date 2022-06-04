@@ -4,7 +4,8 @@ from .forms import *
 from django.core import serializers
 import json
 def index(request):
-	return render(request, "index.html")
+	form = AdvancedSearch()
+	return render(request, "advanced.html", {"form":form})
 #####testing
 def name_search(request):
 	request.session['card_name'] = request.GET['name_search_input']
@@ -46,14 +47,22 @@ def advanced_search_process(request):
 			cards_to_return = Card.objects.all()
 		else:
 			cards_to_return = cards_list[0]
-		data = serializers.serialize('json',cards_to_return[:60],fields=('name','small'))
+		data = serializers.serialize('json',cards_to_return,fields=('name','small'))
 		json_data = json.loads(data)
 		request.session['returned_cards'] = json_data
 	return redirect("/advanced_search_return")
 
 def advanced_search_return(request):
 	context = {
-		'returned_cards':request.session['returned_cards'],
+		'returned_cards':request.session['returned_cards'][:100],
 	}
-	request.session.flush()
+	request.session['returned_cards'] = request.session['returned_cards'][100:199]
 	return render(request, "multi_card.html", context)
+
+def single_card_return(request, card_id):
+	card = Card.objects.get(id=card_id)
+	context ={
+		'name': card.name,
+		'normal':card.normal,
+	}
+	return render(request, "single_card.html", context)

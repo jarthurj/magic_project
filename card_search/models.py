@@ -59,8 +59,6 @@ class ArtistManager(models.Manager):
 class Artist(models.Model):
 	artist_name = models.CharField(max_length=55)
 	objects = ArtistManager()
-class Digital(models.Model):
-	digital = models.BooleanField()
 
 class RarityManager(models.Manager):
 	def rarity_query(self, request):
@@ -113,8 +111,7 @@ class CmcManager(models.Manager):
 class Cmc(models.Model):
 	cmc = models.FloatField()
 	objects = CmcManager()
-class Legalities(models.Model):
-	name = models.CharField(max_length=45)
+
 
 class Card(models.Model):
 	name = models.CharField(max_length=150)
@@ -123,26 +120,19 @@ class Card(models.Model):
 
 	small = models.URLField()
 	normal = models.URLField()
-	large = models.URLField()
+	# large = models.URLField()
 
 	type_line = models.CharField(max_length=100, null=True)
 
 	artist = models.ForeignKey(Artist, related_name="cards", on_delete=models.CASCADE)
-	digital = models.ForeignKey(Digital, related_name="cards", on_delete=models.CASCADE)
 	rarity = models.ForeignKey(Rarity, related_name="cards", on_delete=models.CASCADE)
 	set_name =models.ForeignKey(Set_name, related_name="cards", on_delete=models.CASCADE, null=True)
 
 	power = models.ForeignKey(Power, related_name="cards", on_delete=models.CASCADE, null=True)
 	toughness = models.ForeignKey(Toughness,related_name="cards", on_delete=models.CASCADE, null=True)
 
-	layout = models.ForeignKey(Layout, related_name="cards", on_delete=models.CASCADE, null=True)
 	mana_cost = models.ForeignKey(Mana_cost, related_name="cards", on_delete=models.CASCADE,null=True)
 	cmc = models.ForeignKey(Cmc, related_name="cards", on_delete=models.CASCADE,null=True)
-
-class Legal(models.Model):
-	name = models.ForeignKey(Legalities, related_name="legalities", on_delete=models.CASCADE)
-	legal = models.BooleanField(null=True)
-	card = models.ForeignKey(Card, related_name="legals", on_delete=models.CASCADE, null=True)
 
 
 class Colors_Manager(models.Manager):
